@@ -2,7 +2,7 @@
 
 This is a sample e-commerce application built for learning purposes.
 
-Here's how to deploy it on Red Hat systems:
+Here's how to deploy it on RHEL8:
 
 ## Deploy and Configure Database
 
@@ -118,11 +118,7 @@ Troubleshooting : Connect DATABASE Error TYPE: 2002: Permission denied
 By default, the policy httpd_can_network_connect_db is disabled (meaning that your web server cannot contact a remote DB.)
 
 Check this via:
-
 getsebool -a | grep httpd
 
 If httpd_can_network_connect_db is Off, enable it via:
-
 setsebool -P httpd_can_network_connect_db 1
-
-
