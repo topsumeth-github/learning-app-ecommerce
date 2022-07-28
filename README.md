@@ -119,10 +119,10 @@ By default, the policy httpd_can_network_connect_db is disabled (meaning that yo
 
 Check this via:
 ```
-curl http://localhost or IP address
+getsebool -a | grep httpd
 ```
 
 If httpd_can_network_connect_db is Off, enable it via:
 ```
-curl http://localhost or IP address
+setsebool -P httpd_can_network_connect_db 1
 ```
