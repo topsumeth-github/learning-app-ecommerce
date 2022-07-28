@@ -11,7 +11,7 @@ Here's how to deploy it on Red Hat systems:
 ```
 sudo dnf install -y mariadb-server
 sudo vi /etc/my.cnf
-sudo ystemctl start mariadb
+sudo systemctl start mariadb
 sudo systemctl enable mariadb
 ```
 
@@ -27,8 +27,8 @@ sudo firewall-cmd --reload
 ```
 $ mysql
 MariaDB > CREATE DATABASE ecomdb;
-MariaDB > CREATE USER 'ecomuser'@'localhost' IDENTIFIED BY 'ecompassword';
-MariaDB > GRANT ALL PRIVILEGES ON *.* TO 'ecomuser'@'localhost';
+MariaDB > CREATE USER 'ecomuser'@'%' IDENTIFIED BY 'ecompassword';
+MariaDB > GRANT ALL PRIVILEGES ON *.* TO 'ecomuser'@'%';
 MariaDB > FLUSH PRIVILEGES;
 ```
 
@@ -61,7 +61,7 @@ mysql < db-load-script.sql
 1. Install required packages
 
 ```
-sudo yum install -y httpd php php-mysql
+sudo dnf install php php-mysqlnd php-mbstring php-opcache php-gd
 sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
 sudo firewall-cmd --reload
 ```
@@ -77,14 +77,14 @@ sudo sed -i 's/index.html/index.php/g' /etc/httpd/conf/httpd.conf
 3. Start httpd
 
 ```
-sudo service httpd start
+sudo systemctl start httpd
 sudo systemctl enable httpd
 ```
 
 4. Download code
 
 ```
-sudo yum install -y git
+sudo dnf install -y git
 git clone https://github.com/kodekloudhub/learning-app-ecommerce.git /var/www/html/
 ```
 
@@ -110,5 +110,17 @@ sudo sed -i 's/172.20.1.101/localhost/g' /var/www/html/index.php
 6. Test
 
 ```
-curl http://localhost
+curl http://localhost or IP address
 ```
+
+
+Troubleshooting : Connect DATABASE Error TYPE: 2002: Permission denied
+By default, the policy httpd_can_network_connect_db is disabled (meaning that your web server cannot contact a remote DB.)
+
+Check this via:
+# getsebool -a | grep httpd
+
+If httpd_can_network_connect_db is Off, enable it via:
+# setsebool -P httpd_can_network_connect_db 1
+
+
