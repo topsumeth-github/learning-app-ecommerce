@@ -118,9 +118,11 @@ Troubleshooting : Connect DATABASE Error TYPE: 2002: Permission denied
 By default, the policy httpd_can_network_connect_db is disabled (meaning that your web server cannot contact a remote DB.)
 
 Check this via:
-# getsebool -a | grep httpd
+
+getsebool -a | grep httpd
 
 If httpd_can_network_connect_db is Off, enable it via:
-# setsebool -P httpd_can_network_connect_db 1
+
+setsebool -P httpd_can_network_connect_db 1
 
 
