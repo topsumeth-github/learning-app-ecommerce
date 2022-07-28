@@ -118,7 +118,11 @@ Troubleshooting : Connect DATABASE Error TYPE: 2002: Permission denied
 By default, the policy httpd_can_network_connect_db is disabled (meaning that your web server cannot contact a remote DB.)
 
 Check this via:
+```
 curl http://localhost or IP address
+```
 
 If httpd_can_network_connect_db is Off, enable it via:
+```
 curl http://localhost or IP address
+```
