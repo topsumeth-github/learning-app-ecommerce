@@ -122,3 +122,13 @@ sudo sed -i 's/172.20.1.101/localhost/g' /var/www/html/index.php
 ```
 curl http://localhost
 ```
+
+
+Note:
+By default, the policy httpd_can_network_connect_db is disabled (meaning that your web server cannot contact a remote DB.)
+
+Check this via:
+# getsebool -a | grep httpd
+
+If httpd_can_network_connect_db is Off, enable it via:
+# setsebool -P httpd_can_network_connect_db 1
